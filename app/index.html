@@ -2,17 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="SHIELD - Free Bootstrap 3 Theme">
     <meta name="author" content="Carlos Alvarez - Alvarez.is - blacktie.co">
     <link rel="shortcut icon" href="assets/ico/favicon.png">
 
     <title>emaf - Evan Marsland</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="styles/style.css" rel="stylesheet">
     <link href="styles/flat-ui.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
@@ -74,8 +71,36 @@
       font-size:60px;
     }
 
+    #content{
+      overflow-x:hidden;
+    }
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Styles */
+header .brand{
+  font-size:22px;
+}
+
+#headerwrap p {
+  font-size:15px;
+}
+}
+
+@media (max-width : 320px) {
+/* Styles */
+header .brand{
+  font-size:22px;
+}
+
+#headerwrap p {
+  font-size:15px;
+}
+}
+
     </style>
-<header class="header-20" style="position:fixed;margin-top:50px;" id="navbar-main">
+<header class="header-20" style="position:fixed;" id="navbar-main">
     <div class="container">
         <div class="row">
             <div class="navbar col-sm-12" role="navigation">
@@ -102,34 +127,7 @@
     <div class="header-background"></div>
 </header>
 
-
-<!--
-    <div id="navbar-main">
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon icon-shield" style="font-size:30px; color:#3498db;"></span>
-          </button>
-          <a class="navbar-brand hidden-xs hidden-sm" href="#home">Evan Marsland and Friends</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#home" class="smoothScroll">Home</a></li>
-      <li> <a href="#about" class="smoothScroll"> About</a></li>
-      <li> <a href="#services" class="smoothScroll"> Services</a></li>
-      <li> <a href="#team" class="smoothScroll"> Team</a></li>
-      <li> <a href="#portfolio" class="smoothScroll"> Portfolio</a></li>
-      <li> <a href="#blog" class="smoothScroll"> Blog</a></li>
-      <li> <a href="#contact" class="smoothScroll"> Contact</a></li>
-        </div>
-      </div>
-    </div>
-    </div>
--->
-
-
+<div id="content">
     <!-- ==== HEADERWRAP ==== -->
       <div id="headerwrap" id="home" name="home">
       <header class="clearfix" id="header">
@@ -145,8 +143,8 @@
       <div class="row">
         <div class="col-lg-4 callout">
           <span class="icon icon-pencil"></span>
-          <h4>Design</h4>
-          <p>I like good design. Let me know what you think of this website. <a href="mailto:ERmarsland@gmail.com">Send me an email.</a></p>
+          <h4>Simple Design</h4>
+          <p>I like good design. Let me know what you think of this website in the contact section.</p>
         </div><!-- col-lg-4 -->
 
         <div class="col-lg-4 callout">
@@ -250,11 +248,9 @@
         </div>
       </div>
     </div>
-      </div><!-- container -->
-    </section><!-- section -->
+      </div>
+    </section>
 
-
-    <!-- ==== SERVICES ==== -->
     <div class="container" id="projects" name="projects">
       <br>
       <br>
@@ -264,12 +260,12 @@
         <br>
         <div class="col-lg-offset-2 col-lg-8">
           <h4 class="text-center">Here's a list of some of the things I'm working on</h4>
-        </div><!-- col-lg -->
-      </div><!-- row -->
-    </div><!-- container -->
+        </div>
+      </div>
+    </div>
 
 
-    <!-- ==== GREYWRAP ==== -->
+
     <div id="greywrap">
       <div class="container">
         <div class="row">
@@ -325,16 +321,12 @@
         <h4>Created by Evan Marsland - Copyright 2014</h4>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
+<div>
 
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
   <script type="text/javascript" src="scripts/retina.js"></script>
   <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="scripts/smoothscroll.js"></script>
+  <script type="text/javascript" src="scripts/smoothscroll.js"></script>
   <script type="text/javascript" src="scripts/jquery-func.js"></script>
   <script type="text/javascript" src="scripts/jquery.imageScroll.js"></script>
   <script type="text/javascript" src="scripts/isomer.js"></script>

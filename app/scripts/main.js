@@ -20,7 +20,6 @@ $(document).ready(function(){
     var pos = parseInt(divider.style.backgroundPositionY, 10);
     var newPos = scroll/2+'px';
     divider.style.backgroundPositionY = newPos;
-    console.log(divider.style.backgroundPositionY);
 
 
     if (scroll > 700){
