@@ -238,7 +238,8 @@ blockquote cite:before {
 
 /* Links */
 a {
-    color: #3498db;
+    color: black;
+    font-weight:bold;
     word-wrap: break-word;
 
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -410,8 +411,10 @@ a:after {
 /* Section Dividers Backgrounds */
 
 .divider1 {
-	/*background-image: url('../images/bg/divider1.jpg');*/
-  background-color: blue;
+	background-image: url('../images/bg2.png');
+  background-size: auto;
+  repeat:repeat-x;
+  z-index:-1;
 }
 
 #headerwrap{

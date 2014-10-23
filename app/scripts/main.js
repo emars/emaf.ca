@@ -7,7 +7,8 @@ $(document).ready(function(){
   var Builder = ISOMERBUILDER.Builder;
   var Entity = ISOMERBUILDER.Entity;
   builder = new Builder('isomer-container-1');
-
+  var divider = document.getElementsByClassName('divider1')[0];
+  divider.style.backgroundPositionY = "0px";
   $(document).scroll(function(){
     var scroll = $(window).scrollTop();
     var currMargin = parseInt($('#isomer-container-1').css('margin-top'),10);
@@ -15,6 +16,13 @@ $(document).ready(function(){
         var newMargin = String((scroll / 2)) + 'px';
         $('#isomer-container-1').css('margin-top',newMargin);
     }
+
+    var pos = parseInt(divider.style.backgroundPositionY, 10);
+    var newPos = scroll/2+'px';
+    divider.style.backgroundPositionY = newPos;
+    console.log(divider.style.backgroundPositionY);
+
+
     if (scroll > 700){
       if (animateNav){
         animateNav = false;
