@@ -33,18 +33,19 @@ var ISOMERBUILDER = function(){
 
   Builder.prototype = {
     build: function(entities, settings){
+      this.entities = entities;
       parseEntities(entities);
       var i, x, currentEntity, time = 0, self=this;
-      var totalTime = 0;
+      this.totalTime = 0;
       var draw = function(){
         requestAnimationFrame(draw);
         var now = +new Date(),
           dt = now - (time || now);
         time = now;
-        totalTime += dt;
+        self.totalTime += dt;
         //console.log(self.totalTime);
         clearCanvas();
-        render(entities, totalTime);
+        render(entities, self.totalTime);
       }
 
       draw();
@@ -88,6 +89,23 @@ var ISOMERBUILDER = function(){
             .translate(c.x,c.y,c.z)
         , new Isomer.Color(cl.r, cl.g,cl.b));
       }
+    },
+
+    alterEntity: function(entityIndex, settings){
+      var entity = this.entities[entityIndex];
+      console.log(entity);
+      console.log(settings);
+      for (index in settings){
+        console.log(index);
+        //if (settings[index] instanceof Function){
+        //  for (nestIndex in settings[index]){
+        //    entity[index][nestIndex] = settings[index][nestIndex];
+        //  }
+        //} else {
+            entity[index] = settings[index];
+      //  }
+      }
+      console.log(entity);
     }
   };
 
@@ -108,6 +126,12 @@ var ISOMERBUILDER = function(){
     },
     linear: function(t, b, c, d){
       return (t>=d) ? b+c : c * t/d + b;
+    },
+    linearFB: function(t, b, c, d){
+      if (t <= d / 2){
+        return c * 2*t/d + b;
+      }
+      return (t>=d) ? b+c : c*t/d + b;
     }
   };
 
@@ -117,6 +141,12 @@ var ISOMERBUILDER = function(){
     },
     linear: function(t, b, c, d){
       return (t>=d) ? b+c : c * t/d + b;
+    },
+    linearFB: function(t, b, c, d){
+      if (t <= d / 2){
+        return c * 2*t/d + b;
+      }
+      return (t>=d) ? b :b+c - 2*c*(t/2)/d;
     }
   };
 
