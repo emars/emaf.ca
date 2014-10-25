@@ -5,9 +5,6 @@ var linear = Tweens.linear;
 var linearFB = Tweens.linearFB;
 var animateNav = true;
 $(document).ready(function(){
-  //Active scroll reveal
-  window.sr = new scrollReveal();
-  var animateNav = true;
   var Builder = ISOMERBUILDER.Builder;
   var Entity = ISOMERBUILDER.Entity;
   builder = new Builder('isomer-container-1');
@@ -17,6 +14,7 @@ $(document).ready(function(){
   var builderOffset = greywrap.offsetTop;
   $(document).scroll(function(){
     var scroll = $(window).scrollTop();
+    console.log(scroll);
     var currMargin = parseInt($('#isomer-container-1').css('margin-top'),10);
     if (scroll < 500){
         var newMargin = String((scroll / 2)) + 'px';
@@ -27,68 +25,13 @@ $(document).ready(function(){
     var newPos = scroll/2+'px';
     divider.style.backgroundPositionY = newPos;
 
+    if (scroll > builderOffset){
+      builder.pause();
+    } else {
+      builder.resume();
+    }
 
-    checkPiano(scroll);
-    emafLetters(scroll);
-  });
 
-  //PIANO KEYBOARD
-  builder.build([blockFour,
-    blockTwo,
-    blockThree,
-    blockOne,
-    createKey(2.5, 1200),
-    createKey(1.95, 1400),
-    createKey(1.4, 1600),
-    createKey(0.85, 1800),
-    createKey(0.3, 2000),
-    createKey(-0.25, 2200),
-    createKey(-0.8, 2400),
-    createBlackKey(2.77, 2600),
-    createBlackKey(2.22, 2800),
-    createBlackKey(1.67, 3000),
-    createBlackKey(0.57, 3200),
-    createBlackKey(0.02, 3400),
-    blockOne
-    ]);
-    var relativeDiv = document.getElementsByClassName('moveScroll')[0];
-    var xOffset = relativeDiv.offsetLeft - 300;
-    var yOffset = relativeDiv.offsetTop;
-    var firstClick = true;
-    var firstCoords = {};
-    var secondCoords = {};
-      builder.fg.addEventListener('click', function(e){
-        var x = e.pageX - xOffset;
-        var y = 540 + builder.div.offsetTop - e.pageY;
-        var note = keymap(x,y);
-        var sine = T("sin", {freq:note.freq, mul:0.5});
-        T("perc", {r:500}, sine).on("ended", function() {
-          this.pause();
-        }).bang().play();
-        var timeNow = builder.totalTime;
-        var keypress = {
-          scale:function(current){
-            return{
-              x:0.5,
-              y:2,
-              z:linearFB(current - timeNow, 0.4, -0.2, 400)
-            }
-          }
-        };
-        if (note.index < 11){
-            builder.alterEntity(note.index, keypress);
-        } else {
-            builder.alterEntity(note.index, {
-              scale:function(current){
-                return{
-                  x:0.25,
-                  y:1.5,
-                  z:linearFB(current - timeNow, 0.1, -0.05, 400)
-                };
-            }});
-        }
-      });
-  function emafLetters(scroll){
     if (scroll > 700){
       if (animateNav){
         animateNav = false;
@@ -117,32 +60,81 @@ $(document).ready(function(){
         });
       }
     }
-  }
+  });
 
-  function checkPiano(scroll){
-    if (scroll > builderOffset){
-      builder.pause();
-    } else {
-      builder.resume();
-    }
-  }
-
-  function genLinearFn(x, y){
+  //PIANO KEYBOARD
+  builder.build([blockFour,
+    blockTwo,
+    blockThree,
+    blockOne,
+    createKey(2.5, 1200),
+    createKey(1.95, 1400),
+    createKey(1.4, 1600),
+    createKey(0.85, 1800),
+    createKey(0.3, 2000),
+    createKey(-0.25, 2200),
+    createKey(-0.8, 2400),
+    createBlackKey(2.77, 2600),
+    createBlackKey(2.22, 2800),
+    createBlackKey(1.67, 3000),
+    createBlackKey(0.57, 3200),
+    createBlackKey(0.02, 3400),
+    blockOne
+    ]);
+    var relativeDiv = document.getElementsByClassName('moveScroll')[0];
+    var xOffset = relativeDiv.offsetLeft - 300;
+    var yOffset = relativeDiv.offsetTop;
+    var firstClick = true;
+    var firstCoords = {};
+    var secondCoords = {};
     var dx, dy, m, b, fn;
-    if (firstClick){
-      firstCoords = {x:x, y:y};
-      firstClick = false;
-    } else {
-      secondCoords = {x:x, y:y};
-      firstClick = true;
-      dx = secondCoords.x - firstCoords.x;
-      dy = secondCoords.y - firstCoords.y;
-      m = dy/dx;
-      b = firstCoords.y - firstCoords.x * m;
-      fn = "y = "+m+"x + "+b;
-      console.log('function: '+fn);
-    }
-  }
+      builder.fg.addEventListener('click', function(e){
+        var x = e.pageX - xOffset;
+        var y = 540 + builder.div.offsetTop - e.pageY;
+        console.log(x + ' ' + y);
+        var note = keymap(x,y);
+        console.log(note);
+        var sine = T("sin", {freq:note.freq, mul:0.5});
+        T("perc", {r:500}, sine).on("ended", function() {
+          this.pause();
+        }).bang().play();
+        var timeNow = builder.totalTime;
+        console.log(timeNow);
+        var keypress = {
+          scale:function(current){
+            return{
+              x:0.5,
+              y:2,
+              z:linearFB(current - timeNow, 0.4, -0.2, 400)
+            }
+          }
+        };
+        if (note.index < 11){
+            builder.alterEntity(note.index, keypress);
+        } else {
+            builder.alterEntity(note.index, {
+              scale:function(current){
+                return{
+                  x:0.25,
+                  y:1.5,
+                  z:linearFB(current - timeNow, 0.1, -0.05, 400)
+                };
+            }});
+        }
+        if (firstClick){
+          firstCoords = {x:x, y:y};
+          firstClick = false;
+        } else {
+          secondCoords = {x:x, y:y};
+          firstClick = true;
+          dx = secondCoords.x - firstCoords.x;
+          dy = secondCoords.y - firstCoords.y;
+          m = dy/dx;
+          b = firstCoords.y - firstCoords.x * m;
+          fn = "y = "+m+"x + "+b;
+          console.log('function: '+fn);
+        }
+      });
 
 });
 

@@ -2,6 +2,7 @@ var ISOMERBUILDER = function(){
   var Builder = function(id){
     self = this;
     parseDiv(id);
+    this.paused = false;
 
     //PRIVATE
     function parseDiv(id){
@@ -39,13 +40,18 @@ var ISOMERBUILDER = function(){
       this.totalTime = 0;
       var draw = function(){
         requestAnimationFrame(draw);
-        var now = +new Date(),
-          dt = now - (time || now);
-        time = now;
-        self.totalTime += dt;
-        //console.log(self.totalTime);
-        clearCanvas();
-        render(entities, self.totalTime);
+        var now, dt;
+        if (self.paused){
+          //Make sure time doesn't increment
+          now = time = +new Date();
+        } else {
+            now = +new Date();
+            dt = now - (time || now);
+            time = now;
+            self.totalTime += dt;
+            clearCanvas();
+            render(entities, self.totalTime);
+        }
       }
 
       draw();
@@ -93,19 +99,17 @@ var ISOMERBUILDER = function(){
 
     alterEntity: function(entityIndex, settings){
       var entity = this.entities[entityIndex];
-      console.log(entity);
-      console.log(settings);
       for (index in settings){
-        console.log(index);
-        //if (settings[index] instanceof Function){
-        //  for (nestIndex in settings[index]){
-        //    entity[index][nestIndex] = settings[index][nestIndex];
-        //  }
-        //} else {
             entity[index] = settings[index];
-      //  }
       }
-      console.log(entity);
+    },
+
+    resume: function(){
+      this.paused = false;
+    },
+
+    pause: function(){
+      this.paused = true;
     }
   };
 

@@ -142,9 +142,6 @@ you can use the generic selector below, but it's slower:
 .icon-tv:before {
 	content: "\e027";
 }
-.icon-pencil:before {
-	content: "\e028";
-}
 .icon-new-tab:before {
 	content: "\e029";
 }
